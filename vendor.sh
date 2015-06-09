@@ -9,9 +9,15 @@ clone() {
 	vcs=$1
 	pkg=$2
 	rev=$3
+	dest=$4
 
 	pkg_url=https://$pkg
 	target_dir=src/$pkg
+
+	if [ -n "$dest" ]; then
+	    echo "EMPTY"
+		target_dir=src/$dest
+	fi
 
 	echo -n "Getting dependency -> $pkg @ $rev: "
 
@@ -26,19 +32,16 @@ clone() {
 			git clone --quiet --no-checkout $pkg_url $target_dir
 			( cd $target_dir && git reset --quiet --hard $rev )
 			;;
-		hg)
-			hg clone --quiet --updaterev $rev $pkg_url $target_dir
-			;;
 	esac
 
 	echo -n 'removing VCS hidden files, '
-	( cd $target_dir && rm -rf .{git,hg} )
+	( cd $target_dir && rm -rf .{git} )
 
 	echo done
 }
 
 # List Project Dependencies
-clone hg code.google.com/p/go.crypto 69e2a90ed92d
+clone git go.googlesource.com/crypto 1351f936d976c60a0a48d728281922cf63eafb8d golang.org/x/crypto
 
 clone git github.com/mattsurabian/msg c329a42586fca968e152a235c3a155b10819fa78
 clone git github.com/mitchellh/cli 8230c3f351c1efa17429df4e771ab8dcd67ff4bd
