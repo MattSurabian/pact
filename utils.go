@@ -8,8 +8,12 @@ import (
 	"os"
 )
 
-// Figure out if we have something being piped into the CLI
-// If so read and return it, if not return the empty string
+/**
+ * CheckStdIn
+ * @returns string value from STDIN
+ * Helper method which figures out if something is being piped into the CLI. If so, it is
+ * read and returned. Otherwise this method returns the empty string.
+ */
 func CheckStdIn() string {
 	var val string
 	if !termutil.Isatty(os.Stdin.Fd()) {
@@ -18,7 +22,6 @@ func CheckStdIn() string {
 			log.Fatal(err)
 		}
 		val = string(valByteArr)
-		return val
 	}
 
 	return val

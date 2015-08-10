@@ -1,31 +1,106 @@
 package main
 
 import (
-	"github.com/mitchellh/cli"
-	"strings"
+	"encoding/json"
+	"fmt"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"os"
+	"os/user"
 )
 
-// GenConfigCommand attempts to write out an INI configuration file
-type GenConfigCommand struct {
-	UI cli.Ui
+var ConfigFileType string
+var ConfigFileName string
+var ConfigDirectory string
+
+type config struct {
+	PublicKeyPath  string
+	PrivateKeyPath string
+	Pacts          map[string][]string
 }
 
-// Long-form help
-func (c *GenConfigCommand) Help() string {
-	help := `
-Usage: config
-  This command will prompt the user for configuration values
-  all are optional but any provided will be persisted to disk
-`
-	return strings.TrimSpace(help)
+var Configuration config
+
+var ConfigCmd = &cobra.Command{
+	Use:   "config",
+	Short: "Configuration generation wizard",
+	Long:  `Provides an interactive wizard which helps to generate a new configuration file and will refuse to modify existing configuration files, and initializes a clean pact collection.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if configFileExists() {
+			fmt.Println("Configuration file already exists, refusing to overwrite.")
+			os.Exit(400)
+		}
+		SetDefaultPact()
+		HydrateConfigurationModel()
+		PersistConfiguration()
+	},
 }
 
-func (c *GenConfigCommand) Synopsis() string {
-	return "Create or update application configuration"
+func init() {
+	currentUser, err := user.Current()
+	if err != nil {
+		panic(err)
+	}
+	userHomeDir := currentUser.HomeDir
+
+	ConfigDirectory = userHomeDir + FILE_SEPERATOR + ".config" + FILE_SEPERATOR + "pact" + FILE_SEPERATOR
+	ConfigFileName = "pact"
+	ConfigFileType = "json"
+
+	viper.SetConfigType(ConfigFileType)
+	viper.SetConfigName(ConfigFileName)
+
+	viper.AddConfigPath(ConfigDirectory)
+
+	err = viper.ReadInConfig()
+	if err != nil {
+		fmt.Println("No config file found. The config command will generate one.")
+	} else {
+		HydrateConfigurationModel()
+	}
 }
 
-// Run the actual command
-func (c *GenConfigCommand) Run(args []string) int {
-	GenerateConfigFile()
-	return OK
+func HydrateConfigurationModel() {
+	viper.Marshal(&Configuration)
+}
+
+/**
+ * PersistConfigurtaion
+ * Method which writes the current configuration model to disk.
+ */
+func PersistConfiguration() {
+
+	//viper.Marshal(&Configuration)
+
+	configurationString, err := json.MarshalIndent(Configuration, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+
+	f, err := os.Create(GetConfigFilePath())
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	f.WriteString(string(configurationString))
+}
+
+/**
+ * configFileExists
+ * @returns bool
+ * Heloer method to determine if a configuration file exists.
+ */
+func configFileExists() bool {
+	_, configExistsError := os.Stat(GetConfigFilePath())
+	return !os.IsNotExist(configExistsError)
+}
+
+/**
+ * GetConfigFilePath
+ * @returns string Absolute path to the configuration file
+ * Helper method which returns the path to the configuration file.
+ */
+func GetConfigFilePath() string {
+	return ConfigDirectory + ConfigFileName + "." + ConfigFileType
 }
