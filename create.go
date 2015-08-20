@@ -1,59 +1,44 @@
 package main
 
 import (
-	"github.com/mattsurabian/msg"
-	"github.com/mitchellh/cli"
-
 	"encoding/base64"
+	"fmt"
+	"github.com/mattsurabian/msg"
+	"github.com/spf13/cobra"
 	"log"
-	"strings"
 )
 
-// CreatePactCommand creates an encrypted message
-type CreatePactCommand struct {
-	UI cli.Ui
+var CreateCmd = &cobra.Command{
+	Use:   "create [pact-name] [plain-text]",
+	Short: "Outputs an encrypted cipher text given a plain text message",
+	Long: `Uses AES-256-GCM to encrypt a message with a randomly generated key from PBKDF2
+and encrypts that secret key with the public key of each member of a pact.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if len(Configuration.Pacts[args[0]]) > 0 {
+			fmt.Println(Create(args[0], []byte(args[1])))
+		} else {
+			log.Fatalf("[ERROR] Config file does not contain keys for the pact: %s \n", args[0])
+		}
+	},
 }
 
-// Long-form help
-func (c *CreatePactCommand) Help() string {
-	help := `
-Usage: [flags] create [message]
-Output: A base64 encoded representation of the encrypted message.
- If no message is provided standard input will be read.
- This allows text to be piped into the create command
-`
-	return strings.TrimSpace(help)
-}
+/**
+ * Create
+ * @param pactName string Name of the pact to encrypt data for
+ * @param plainText []byte Byte array representation of the plain text
+ * Uses the msg library to encrypt the provided plain text for consumption by the members of the
+ * specified pact.
+ */
+func Create(pactName string, plainText []byte) string {
+	pactKeyStrings := Configuration.Pacts[pactName]
+	pactKeys := make([]*[32]byte, len(pactKeyStrings))
 
-func (c *CreatePactCommand) Synopsis() string {
-	return "Create an encrypted message"
-}
-
-// Run the actual command
-func (c *CreatePactCommand) Run(args []string) int {
-
-	ptMessage := []byte(CheckStdIn())
-
-	// Message has not been specified via std in, so it should be an argument
-	if len(ptMessage) == 0 && len(args) < 1 {
-		log.Println("Error: Missing arguments, run -h put for more info")
-		return BAD_REQUEST
+	for i, key := range pactKeyStrings {
+		pactKeys[i] = msg.ReadNACLKeyString(key)
 	}
 
-	if len(ptMessage) == 0 {
-		ptMessage = []byte(args[0])
-	}
-
-	selfPublicKey := msg.ReadNACLKeyFile(GetNACLPublicKeyPath())
-	selfPrivateKey := msg.ReadNACLKeyFile(GetNACLPrivateKeyPath())
-
-	// In future this should be a call to the server which returns a byte array of pub keys
-	authorizedUserKeys := []*[32]byte{selfPublicKey}
-
-	cipherText := msg.Encrypt(ptMessage, authorizedUserKeys, selfPublicKey, selfPrivateKey)
+	cipherText := msg.Encrypt(plainText, pactKeys, GetPublicKey(), GetPrivateKey())
 	encodedCipherText := base64.StdEncoding.EncodeToString(cipherText)
 
-	c.UI.Output(encodedCipherText)
-
-	return OK
+	return encodedCipherText
 }
