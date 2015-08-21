@@ -53,7 +53,13 @@ If however, you're interested in compiling it yourself the following steps shoul
 1. You should now be able to run the create and read methods! Try it: `pact create self "some message" | pact read`
 
 ## General Usage
+You can output your own public key for copy and pasting purposes using `pact key-export`, or direct the output of that command to a file which you can send to someone else `pact key-export > my-nacl-pub.key`
+Once you've got Pact up and running and collected a few public keys try creating a new pact (`pact new [name-of-pact]`) and adding some keys to it (`pact add-key [name-of-pact] [public-key]` or `cat someones-pub.key | pact add-key [name-of-pact]`). 
 
+To create an encrypted message which is only able to be decrypted by members of the pact use the create command: `pact create [name-of-pact] [message]` you can use `>` to write the ciphertext to a file or
+copy and paste the ciphertext into an email or other communication channel. It can be read by any member of the pact with `pact read [ciphertext]`.
+
+Of note, unless you explicitly add your own public key to the pact `pact key-export | pact add-key [name-of-pact]` you will not be able to decrypt the ciphertext.
 
 ## Available Commands
 
