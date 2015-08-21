@@ -4,7 +4,7 @@ An experimental cryptographic messaging application.
 ## What Is Pact?
 Pact is a CLI application that enables messages to be shared securely between many parties without the 
 need for out of band secret sharing. Pact does this by relying on asymmetric cryptography to safeguard a
-symmetric key. This allows two parties to communicate securely after exchanging only their public keys.
+symmetric key. This allows two or more parties to communicate securely after exchanging only their public keys.
 
 Pact offloads all of its crypto to the [MSG library](https://github.com/MattSurabian/msg) but this README 
 will review the crypto operations as if Pact was doing all the heavy lifting so potential Pact users are given
