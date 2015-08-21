@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"strings"
 )
 
 var NewPactCmd = &cobra.Command{
@@ -60,7 +61,7 @@ created if necessary. The public-key can be piped into this command.`,
 			key = args[1]
 		}
 
-		Configuration.Pacts[pactName] = append(Configuration.Pacts[pactName], key)
+		Configuration.Pacts[pactName] = append(Configuration.Pacts[pactName], strings.TrimSpace(key))
 		PersistConfiguration()
 	},
 }
