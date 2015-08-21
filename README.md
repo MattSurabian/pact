@@ -90,8 +90,9 @@ Use "pact [command] --help" for more information about a command.
 
 ```
 $ ./pact create --help
-Uses AES-256-GCM to encrypt a message with a randomly generated key from PBKDF2 and encrypts that 
-secret key with the public key of each member of a pact. Base64 encoded encrypted ciphertext is sent to STDOUT.
+Uses AES-256-GCM to encrypt a message with a randomly generated key 
+from PBKDF2 and encrypts that secret key with the public key of each 
+member of a pact. Base64 encoded encrypted ciphertext is sent to STDOUT.
 
 Usage: 
   pact create [pact-name] [plain-text] [flags]
