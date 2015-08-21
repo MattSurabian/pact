@@ -11,7 +11,7 @@ var pactCmd = &cobra.Command{
 	Long: `A CLI tool that uses NaCl and AES-256-GCM to facilitate multiparty
 communication without the need for out of band secret sharing.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Pact CLI v" + VERSION)
+		fmt.Println("Pact CLI v" + VERSION)
 	},
 }
 

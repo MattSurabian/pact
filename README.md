@@ -117,7 +117,8 @@ Usage:
 ```
 $ ./pact read --help
 Uses NaCl to decrypt a key which can be used to decrypt the message 
-which has been secured with AES-256-GCM encryption.
+which has been secured with AES-256-GCM encryption. The ciphertext can be piped 
+into this command.
 
 Usage: 
   pact read [ciphertext]
