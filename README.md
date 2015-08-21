@@ -49,10 +49,10 @@ crypto algorithms rely on this principal. Pact takes advantage of producing a ps
 sliced appart by an authorized recipient and securely decrypted.
 
 ## Getting Started
-There are a couple of ways to get started with Pact. The easiest method is to [download a compiled binary]() for your platform and just start using it.
-If however, you're interested in compiling it yourself the following steps should get you there:
+There are a couple of ways to get started with Pact. The easiest method is to download a compiled binary for your platform and just start using it. 
+Unfortauntely I'm not yet setup to cross compile, so you'll have to do it yourself. The following steps should get you there:
 
-1. Clone this repository
+1. Clone this repository anywhere you like.
 1. Run `make`. This should create a `pact` binary which you can use directly like so: `./pact`; you can also copy the binary to `/usr/bin/` or `/usr/local/bin` to use it directly.
 1. Run `pact config` to generate a config file. This will also generate a keypair if one does not already exist, and configure the "self" pact which will contain your own public key.
 1. Running `pact list` will show all your pacts and the public keys they contain. A fresh configuration will only have a `self` pact
@@ -222,3 +222,11 @@ Usage:
   pact rm-key [pact-name]
 
 ```
+
+### Contributing
+
+This repo is still very much experimental, so the more the merrier. While a `Makefile` and vendoring 
+script are provided for user convenience it's recommended that contributors clone this into their 
+Gopath per the standard Go workflow (`$GOPATH/src/github/mattsurabian/pact`). Contributing to Go projects 
+from a fork can be more complicated than project's developed in other languages. Fortunately there are blog 
+posts on the subject, like [Katarina Owen's piece about Contributing to Open Source Git Repositories in Go](https://splice.com/blog/contributing-open-source-git-repositories-go/).
