@@ -1,5 +1,6 @@
 # Pact
-An experimental cryptographic messaging application.
+An experimental cryptographic messaging application which implements the experimental cryptographic 
+library [MSG](https://github.com/MattSurabian/msg).
 
 ## What Is Pact?
 Pact is a CLI application that enables messages to be shared securely between many parties without the 
@@ -8,7 +9,10 @@ symmetric key. This allows two or more parties to communicate securely after exc
 
 Pact offloads all of its crypto to the [MSG library](https://github.com/MattSurabian/msg) but this README 
 will review the crypto operations as if Pact was doing all the heavy lifting so potential Pact users are given
-sufficient context. As of this writing Pact is the only usage of the MSG library.
+sufficient context. As of this writing Pact is the only implementation of the MSG library.
+
+If you're curious to take a deeper dive, effort was made to extensively document the [MSG library](https://github.com/MattSurabian/msg);
+code explainations can be found in the comments and test cases.
 
 ### Asymmetric and Symmetric Crypto!?
 Yes, but they are not used on top of one another. Unlike PGP, Pact does not rely on RSA or DSA public-key crypto. 
@@ -17,23 +21,25 @@ secure keys that are only 32 bytes long. NaCl's simplicity and security come at 
 decryption of a single ciphertext is not possible without shared keys. Instead, new cipher
 text must be created for each individual with which a user intends to communicate.
 
-Pact solves this problem by using AES-256-GCM (Galois Counter Mode) to secure the initial message and then
-encrypting the secret key used by AES with NaCl. The final ciphertext is the concatenation of the AES-256-GCM cipher text
+Pact solves this problem by using AES-256-GCM ([Galois/Counter Mode](https://en.wikipedia.org/wiki/Galois/Counter_Mode)) to secure the initial message and then
+encrypts the secret key used for AES with NaCl. The final ciphertext is the concatenation of the AES-256-GCM cipher text
 with fixed size repeating blocks of NaCl ciphertext containing the key necessary to decrypt the original message. 
 
 ### Why Not Just Use PGP?
-Frankly, you probably should. This project is an experiment aimed at making NaCl easier to use for the 
-"average" person. The only real benefit to Pact is that the keys required for secure communication are 16 
+Frankly, you probably should. This project is an experiment aimed at making NaCl easier to use.
+The only real benefit to Pact is that the keys required for secure communication are 16 
 times smaller than the currently recommended 4096-bit RSA keys used for PGP. Pact also aims to be marginally 
 easier to use.
 
 ### How Does Pact Secure A Message
-When Pact encrypts a message it does so using AES-256 in Galois Counter Mode with a randomly generated nonce 
-and key. Messages are encrypted for a specific pact, or group of people, which are represented by a collection 
-of public keys stored in Pact's configuration file (use `pact list` to see them). Pact loops through these public
-keys and encrypts the randomly generated AES-256-GCM key with each pact member's public key. That payload is then
-prefixed with the fingerprint of the public key used for encryption, so on decryption the recipient can immediately 
-know which chunk of bytes to decrypt first in order to learn the key necessary to decrypt the original message.
+When Pact encrypts a message it does so using AES-256 in [Galois/Counter Mode](https://en.wikipedia.org/wiki/Galois/Counter_Mode)
+with a [randomly generated nonce and key](https://github.com/MattSurabian/msg/blob/master/entropy.go#L25-L37). 
+Messages are encrypted for a specific pact, or group of people, which are represented by a collection of public keys stored 
+in Pact's configuration file (use `pact list` to see them). Pact loops through these public keys and encrypts the randomly 
+generated AES-256-GCM key with each pact member's public key. That payload is then prefixed with the [fingerprint of the public
+key](https://github.com/MattSurabian/msg/blob/master/keys.go#L106-L115) used for encryption, so on decryption the recipient can 
+immediately know [which chunk of bytes to decrypt first](https://github.com/MattSurabian/msg/blob/master/decrypter.go#L43-L59)
+in order to learn the key necessary to decrypt the original message.
 
 ### Isn't Combining Cryptographic Method Insecure?
 Combining, yes. Concatenating, no. We assume that both AES-256-GCM and NaCl are PRPs(pseudo-random-permutations) 
@@ -43,7 +49,7 @@ crypto algorithms rely on this principal. Pact takes advantage of producing a ps
 sliced appart by an authorized recipient and securely decrypted.
 
 ## Getting Started
-There are a couple of ways to get started with Pact. The easiest method is to [download a compiled binary]() for your platform and just start using it. 
+There are a couple of ways to get started with Pact. The easiest method is to [download a compiled binary]() for your platform and just start using it.
 If however, you're interested in compiling it yourself the following steps should get you there:
 
 1. Clone this repository
