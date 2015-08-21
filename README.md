@@ -14,12 +14,12 @@ sufficient context. As of this writing Pact is the only usage of the MSG library
 Yes, but they are not used on top of one another. Unlike PGP, Pact does not rely on RSA or DSA public-key crypto. 
 Instead, Pact uses [NaCl](http://nacl.cr.yp.to/), a more modern approach to public-key cryptography with 
 secure keys that are only 32 bytes long. NaCl's simplicity and security come with a price. Multiple party
-decryption of a single cipher text is not possible without shared keys. Instead, new cipher
+decryption of a single ciphertext is not possible without shared keys. Instead, new cipher
 text must be created for each individual with which a user intends to communicate.
 
 Pact solves this problem by using AES-256-GCM (Galois Counter Mode) to secure the initial message and then
-encrypting the secret key used by AES with NaCl. The final cipher text is the concatenation of the AES-256-GCM cipher text
-with fixed size repeating blocks of NaCl cipher text containing the key necessary to decrypt the original message. 
+encrypting the secret key used by AES with NaCl. The final ciphertext is the concatenation of the AES-256-GCM cipher text
+with fixed size repeating blocks of NaCl ciphertext containing the key necessary to decrypt the original message. 
 
 ### Why Not Just Use PGP?
 Frankly, you probably should. This project is an experiment aimed at making NaCl easier to use for the 
@@ -114,7 +114,7 @@ Uses NaCl to decrypt a key which can be used to decrypt the message
 which has been secured with AES-256-GCM encryption.
 
 Usage: 
-  pact read [cipher-text]
+  pact read [ciphertext]
 
 Flags:
   -h, --help=false: help for read

@@ -36,9 +36,9 @@ which has been secured with AES-256-GCM encryption.`,
 
 /**
  * Read
- * @param cipherText []byte Cipher text to decrypt
- * @returns string Plain text of the decrypted cipher text
- * Uses the msg library to decrypt a byte array of cipher text and returns the plain text.
+ * @param cipherText []byte Ciphertext to decrypt
+ * @returns string Plain text of the decrypted ciphertext
+ * Uses the msg library to decrypt a byte array of ciphertext and returns the plain text.
  * On error bails on execution.
  */
 func Read(cipherText []byte) string {
