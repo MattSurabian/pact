@@ -3,10 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"path/filepath"
 )
-
-const FILE_SEPERATOR = string(filepath.Separator)
 
 var pactCmd = &cobra.Command{
 	Use:   "pact",

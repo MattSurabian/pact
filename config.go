@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 	"os"
 	"os/user"
+	"path/filepath"
 )
 
 var ConfigFileType string
@@ -43,7 +44,9 @@ func init() {
 	}
 	userHomeDir := currentUser.HomeDir
 
-	ConfigDirectory = userHomeDir + FILE_SEPERATOR + ".config" + FILE_SEPERATOR + "pact" + FILE_SEPERATOR
+	fileSeperator := string(filepath.Separator)
+
+	ConfigDirectory = userHomeDir + fileSeperator + ".config" + fileSeperator + "pact" + fileSeperator
 	ConfigFileName = "pact"
 	ConfigFileType = "json"
 
