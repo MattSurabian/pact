@@ -10,7 +10,7 @@ Pact offloads all of its crypto to the [MSG library](https://github.com/MattSura
 will review the crypto operations as if Pact was doing all the heavy lifting so potential Pact users are given
 sufficient context. As of this writing Pact is the only usage of the MSG library.
 
-## Asymmetric and Symmetric Crypto!?
+### Asymmetric and Symmetric Crypto!?
 Yes, but they are not used on top of one another. Unlike PGP, Pact does not rely on RSA or DSA public-key crypto. 
 Instead, Pact uses [NaCl](http://nacl.cr.yp.to/), a more modern approach to public-key cryptography with 
 secure keys that are only 32 bytes long. NaCl's simplicity and security come with a price. Multiple party
@@ -21,13 +21,13 @@ Pact solves this problem by using AES-256-GCM (Galois Counter Mode) to secure th
 encrypting the secret key used by AES with NaCl. The final cipher text is the concatenation of the AES-256-GCM cipher text
 with fixed size repeating blocks of NaCl cipher text containing the key necessary to decrypt the original message. 
 
-## Why Not Just Use PGP?
+### Why Not Just Use PGP?
 Frankly, you probably should. This project is an experiment aimed at making NaCl easier to use for the 
 "average" person. The only real benefit to Pact is that the keys required for secure communication are 16 
 times smaller than the currently recommended 4096-bit RSA keys used for PGP. Pact also aims to be marginally 
 easier to use.
 
-## How Does Pact Secure A Message
+### How Does Pact Secure A Message
 When Pact encrypts a message it does so using AES-256 in Galois Counter Mode with a randomly generated nonce 
 and key. Messages are encrypted for a specific pact, or group of people, which are represented by a collection 
 of public keys stored in Pact's configuration file (use `pact list` to see them). Pact loops through these public
@@ -35,7 +35,7 @@ keys and encrypts the randomly generated AES-256-GCM key with each pact member's
 prefixed with the fingerprint of the public key used for encryption, so on decryption the recipient can immediately 
 know which chunk of bytes to decrypt first in order to learn the key necessary to decrypt the original message.
 
-## Isn't Combining Cryptographic Method Insecure?
+### Isn't Combining Cryptographic Method Insecure?
 Combining, yes. Concatenating, no. We assume that both AES-256-GCM and NaCl are PRPs(pseudo-random-permutations) 
 or at worst PRFs (pseudo-random-functions); which is to say the output they produce is sufficiently indistinguishable 
 from actual random output. The concatenation of two pseudo-random blocks is itself pseudo random. All parallelizable 
