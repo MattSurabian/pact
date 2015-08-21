@@ -13,7 +13,7 @@ import (
 var NewPactCmd = &cobra.Command{
 	Use:   "new [pact-name]",
 	Short: "Creates a new pact",
-	Long:  `Creates a new pact in the configuration file that keys can be added to with the add command`,
+	Long:  `Creates a new pact in the configuration file that keys can be added to with the add-key command`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) < 1 {
 			fmt.Println("Missing pact name! Refusing to continue")
@@ -41,7 +41,8 @@ var ListPactCmd = &cobra.Command{
 var AddPactKeyCmd = &cobra.Command{
 	Use:   "add-key [pact-name] [public-key]",
 	Short: "Adds a key to an existing pact or creates a new pact containing the key",
-	Long:  `Adds the provided public key to the specified pact. A new pact will be created if necessary.`,
+	Long:  `Adds the provided public key to the specified pact. A new pact will be
+created if necessary. The public-key can be piped into this command.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) < 1 {
 			fmt.Println("Missing pact name! Refusing to continue")

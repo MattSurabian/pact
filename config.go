@@ -23,8 +23,8 @@ var Configuration config
 
 var ConfigCmd = &cobra.Command{
 	Use:   "config",
-	Short: "Configuration generation wizard",
-	Long:  `Provides an interactive wizard which helps to generate a new configuration file and will refuse to modify existing configuration files, and initializes a clean pact collection.`,
+	Short: "Generates a new configuration file",
+	Long:  `Generates a new configuration file and will refuse to overwrite an existing one.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if configFileExists() {
 			fmt.Println("Configuration file already exists, refusing to overwrite.")

@@ -67,8 +67,8 @@ Usage:
 
 Available Commands: 
   create      Outputs an encrypted ciphertext given a plain text message
-  read        Outputs a plain text message given an encrypted cipher text
-  config      Configuration generation wizard
+  read        Outputs a plain text message given an encrypted ciphertext
+  config      Generates a new configuration file
   key-gen     Creates new NaCl keys in the location specified by pact's configuration
   key-export  Outputs the user's public key encoded as base64 to STDOUT
   new         Creates a new pact
@@ -93,9 +93,10 @@ $ ./pact create --help
 Uses AES-256-GCM to encrypt a message with a randomly generated key 
 from PBKDF2 and encrypts that secret key with the public key of each 
 member of a pact. Base64 encoded encrypted ciphertext is sent to STDOUT.
+The plain text can be piped into this command.
 
 Usage: 
-  pact create [pact-name] [plain-text] [flags]
+  pact create [pact-name] [plain-text]
 
 ```
 
@@ -107,7 +108,7 @@ Uses NaCl to decrypt a key which can be used to decrypt the message
 which has been secured with AES-256-GCM encryption.
 
 Usage: 
-  pact read [cipher-text] [flags]
+  pact read [cipher-text]
 
 Flags:
   -h, --help=false: help for read
@@ -116,16 +117,95 @@ Flags:
 
 ### config
 
+```
+$ ./pact config --help
+Generates a new configuration file and will refuse to overwrite an existing one.
+
+Usage: 
+  pact config
+
+```
+
 ### key-gen
 
+```
+$ ./pact key-gen --help
+Generates an NaCl keypair and writes their base64
+string representation to the paths specified in Pact's configuration.
+
+Usage: 
+  pact key-gen
+
+```
 ### key-export
+
+```
+$ ./pact key-export --help                                                                          
+Sends the user's public key encoded as base64 to STDOUT for easy distribution
+
+Usage: 
+  pact key-export
+
+```
 
 ### new
 
+```
+$ ./pact new --help
+Creates a new pact in the configuration file that keys can be added to with the add-key command
+
+Usage: 
+  pact new [pact-name]
+
+```
+
 ### rm
+
+```
+$ ./pact rm --help                                                                                  
+Removes an existing pact and all the keys it contains from the user's configuration file.
+
+Usage: 
+  pact rm [pact-name]
+
+```
 
 ### list
 
+```
+$ ./pact list --help                                                                                
+Outputs a list of existing pacts and the keys they contain.
+
+Usage: 
+  pact list
+
+```
+
 ### add-key
 
+```
+$ ./pact add-key --help                                                                             
+Adds the provided public key to the specified pact. A new pact will be created if necessary.
+The public-key can be piped into this command.
+
+Usage: 
+  pact add-key [pact-name] [public-key]
+
+```
+
+Pipe In A Public Key:
+
+```
+cat path/to/key.key | pact add-key [pact-name]
+```
+
 ### rm-key
+
+```
+$ ./pact rm-key --help                                                                              
+Removes a single key from an existing pact using interactive prompts.
+
+Usage: 
+  pact rm-key [pact-name]
+
+```
