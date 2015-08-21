@@ -66,7 +66,7 @@ Usage:
   pact [command]
 
 Available Commands: 
-  create      Outputs an encrypted cipher text given a plain text message
+  create      Outputs an encrypted ciphertext given a plain text message
   read        Outputs a plain text message given an encrypted cipher text
   config      Configuration generation wizard
   key-gen     Creates new NaCl keys in the location specified by pact's configuration
@@ -88,6 +88,15 @@ Use "pact [command] --help" for more information about a command.
 
 ### create
 
+```
+$ ./pact create --help
+Uses AES-256-GCM to encrypt a message with a randomly generated key from PBKDF2 and encrypts that 
+secret key with the public key of each member of a pact. Base64 encoded encrypted ciphertext is sent to STDOUT.
+
+Usage: 
+  pact create [pact-name] [plain-text] [flags]
+
+```
 
 ### read
 

@@ -10,9 +10,10 @@ import (
 
 var CreateCmd = &cobra.Command{
 	Use:   "create [pact-name] [plain-text]",
-	Short: "Outputs an encrypted cipher text given a plain text message",
+	Short: "Outputs an encrypted ciphertext given a plain text message",
 	Long: `Uses AES-256-GCM to encrypt a message with a randomly generated key from PBKDF2
-and encrypts that secret key with the public key of each member of a pact.`,
+and encrypts that secret key with the public key of each member of a pact. Base64 encoded encrypted
+ciphertext is sent to STDOUT.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(Configuration.Pacts[args[0]]) > 0 {
 			fmt.Println(Create(args[0], []byte(args[1])))
