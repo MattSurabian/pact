@@ -12,8 +12,8 @@ import (
 
 var KeyGenCmd = &cobra.Command{
 	Use:   "key-gen",
-	Short: "Creates new NaCL keys in the location specified by pact's configuration",
-	Long:  `Generates an NaCL keypair and writes their base64 string representation to the files specified in pact's current configuration.`,
+	Short: "Creates new NaCl keys in the location specified by pact's configuration",
+	Long:  `Generates an NaCl keypair and writes their base64 string representation to the files specified in pact's current configuration.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		KeyGen()
 	},
