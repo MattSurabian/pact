@@ -13,7 +13,7 @@ sufficient context. As of this writing Pact is the only usage of the MSG library
 ### Asymmetric and Symmetric Crypto!?
 Yes, but they are not used on top of one another. Unlike PGP, Pact does not rely on RSA or DSA public-key crypto. 
 Instead, Pact uses [NaCl](http://nacl.cr.yp.to/), a more modern approach to public-key cryptography with 
-secure keys that are only 32 bytes long. NaCl's simplicity and security come with a price. Multiple party
+secure keys that are only 32 bytes long. NaCl's simplicity and security come at a price. Multiple party
 decryption of a single ciphertext is not possible without shared keys. Instead, new cipher
 text must be created for each individual with which a user intends to communicate.
 
