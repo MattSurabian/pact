@@ -11,7 +11,8 @@ import (
 var ReadCmd = &cobra.Command{
 	Use:   "read [cipher-text]",
 	Short: "Outputs a plain text message given an encrypted cipher text",
-	Long:  `Uses NaCl to decrypt a key which can be used to decrypt the message which has been secured with AES-256-GCM encryption.`,
+	Long:  `Uses NaCl to decrypt a key which can be used to decrypt the message
+which has been secured with AES-256-GCM encryption.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		encodedMessage := CheckStdIn()
 

@@ -101,6 +101,19 @@ Usage:
 
 ### read
 
+```
+$ ./pact read --help
+Uses NaCl to decrypt a key which can be used to decrypt the message 
+which has been secured with AES-256-GCM encryption.
+
+Usage: 
+  pact read [cipher-text] [flags]
+
+Flags:
+  -h, --help=false: help for read
+
+```
+
 ### config
 
 ### key-gen
