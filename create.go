@@ -16,8 +16,19 @@ from PBKDF2 and encrypts that secret key with the public key of each
 member of a pact. Base64 encoded encrypted ciphertext is sent to STDOUT.
 The plain text can be piped into this command.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		plainText := CheckStdIn()
+
+		// Message has not been specified via std in, so it should be an argument
+		if plainText == "" && len(args) < 2 {
+			log.Fatalln("[ERROR] Arguments missing. Run -h get for more info")
+		}
+
+		if plainText == "" {
+			plainText = args[1]
+		}
+
 		if len(Configuration.Pacts[args[0]]) > 0 {
-			fmt.Println(Create(args[0], []byte(args[1])))
+			fmt.Println(Create(args[0], []byte(plainText)))
 		} else {
 			log.Fatalf("[ERROR] Config file does not contain keys for the pact: %s \n", args[0])
 		}
