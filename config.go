@@ -50,6 +50,8 @@ func init() {
 	ConfigFileName = "pact"
 	ConfigFileType = "json"
 
+	os.MkdirAll(ConfigDirectory, 0755)
+
 	viper.SetConfigType(ConfigFileType)
 	viper.SetConfigName(ConfigFileName)
 

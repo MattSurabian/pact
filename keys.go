@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
+	"strings"
 )
 
 var KeyGenCmd = &cobra.Command{
@@ -47,8 +48,13 @@ func KeyGen() (err error) {
 	if !DoesNACLKeypairExist() {
 		fmt.Println("Generating new keypair...")
 		pubKey, privKey := msg.GenerateNACLKeyPair()
-		msg.WriteNACLKeyFile(pubKeyPath, pubKey, 0600)
-		msg.WriteNACLKeyFile(privKeyPath, privKey, 0600)
+
+		fmt.Println("What identifying comment should be associated with this keypair? Maybe your email address?")
+		var keyComment string
+		fmt.Scanf("%s", &keyComment)
+
+		msg.WriteNACLKeyFile(pubKeyPath, pubKey, strings.TrimSpace(keyComment), 0600)
+		msg.WriteNACLKeyFile(privKeyPath, privKey, "", 0600)
 		fmt.Println("Keypair created! ")
 
 	} else {
