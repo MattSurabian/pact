@@ -2,6 +2,19 @@
 An experimental cryptographic messaging application which implements the experimental cryptographic 
 library [MSG](https://github.com/MattSurabian/msg).
 
+## Getting Started
+There are a couple of ways to get started with Pact. The easiest method is to [download a compiled binary for your platform](https://github.com/MattSurabian/pact/releases) and just start using it. 
+If you're interested in compiling it yourself, here's how to do it:
+
+1. Clone this repository anywhere you like.
+1. Run `make`. This should create a `pact` binary which you can use directly like so: `./pact`; you can also copy the binary to `/usr/bin/` or `/usr/local/bin` to use it directly.
+1. Run `pact config` to generate a config file. This will also generate a keypair if one does not already exist, and configure the "self" pact which will contain your own public key.
+1. Running `pact list` will show all your pacts and the public keys they contain. A fresh configuration will only have a `self` pact
+1. You should now be able to run the create and read methods! Try it: `pact create self "some message" | pact read`
+
+Of note, the `Makefile` and vendoring script are provided for user convenience, using them is not mandatory. This package is able to be built using the standard
+Golang workflow.
+
 ## What Is Pact?
 Pact is a CLI application that enables messages to be shared securely between many parties without the 
 need for out of band secret sharing. Pact does this by relying on asymmetric cryptography to safeguard a
@@ -47,16 +60,6 @@ or at worst PRFs (pseudo-random-functions); which is to say the output they prod
 from actual random output. The concatenation of two pseudo-random blocks is itself pseudo random. All parallelizable 
 crypto algorithms rely on this principal. Pact takes advantage of producing a psuedo random block which can be intelligently 
 sliced appart by an authorized recipient and securely decrypted.
-
-## Getting Started
-There are a couple of ways to get started with Pact. The easiest method is to download a compiled binary for your platform and just start using it. 
-Unfortauntely I'm not yet setup to cross compile, so you'll have to do it yourself. The following steps should get you there:
-
-1. Clone this repository anywhere you like.
-1. Run `make`. This should create a `pact` binary which you can use directly like so: `./pact`; you can also copy the binary to `/usr/bin/` or `/usr/local/bin` to use it directly.
-1. Run `pact config` to generate a config file. This will also generate a keypair if one does not already exist, and configure the "self" pact which will contain your own public key.
-1. Running `pact list` will show all your pacts and the public keys they contain. A fresh configuration will only have a `self` pact
-1. You should now be able to run the create and read methods! Try it: `pact create self "some message" | pact read`
 
 ## General Usage
 You can output your own public key for copy and pasting purposes using `pact key-export`, or direct the output of that command to a file which you can send to someone else `pact key-export > my-nacl-pub.key`
