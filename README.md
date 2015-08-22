@@ -54,7 +54,7 @@ key](https://github.com/MattSurabian/msg/blob/master/keys.go#L106-L115) used for
 immediately know [which chunk of bytes to decrypt first](https://github.com/MattSurabian/msg/blob/master/decrypter.go#L43-L59)
 in order to learn the key necessary to decrypt the original message.
 
-### Isn't Combining Cryptographic Method Insecure?
+### Isn't Combining Cryptographic Methods Insecure?
 Combining, yes. Concatenating, no. We assume that both AES-256-GCM and NaCl are PRPs(pseudo-random-permutations) 
 or at worst PRFs (pseudo-random-functions); which is to say the output they produce is sufficiently indistinguishable 
 from actual random output. The concatenation of two pseudo-random blocks is itself pseudo random. All parallelizable 
@@ -115,6 +115,20 @@ Usage:
 
 ```
 
+**Working With Files**
+
+Linux/Mac:
+
+```
+cat somefile | pact create [pact-name] > somefile.encrypted
+```
+
+Windows:
+
+```
+type somefile | pact create [pact-name] > somefile.encrypted
+```
+
 ### read
 
 ```
@@ -129,6 +143,20 @@ Usage:
 Flags:
   -h, --help=false: help for read
 
+```
+
+**Working With Files**
+
+Linux/Mac:
+
+```
+cat somefile.encrypted | pact read > somefile
+```
+
+Windows:
+
+```
+type somefile.encrypted | pact read > somefile
 ```
 
 ### config
@@ -209,10 +237,18 @@ Usage:
 
 ```
 
-Pipe In A Public Key:
+**Pipe In A Public Key:**
+
+Linx/Mac:
 
 ```
 cat path/to/key.key | pact add-key [pact-name]
+```
+
+Windows:
+
+```
+type path/to/key.key | pact add-key [pact-name]
 ```
 
 ### rm-key
