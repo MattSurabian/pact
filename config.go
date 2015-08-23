@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
-	"os/user"
 	"path/filepath"
 )
 
@@ -38,11 +38,10 @@ var ConfigCmd = &cobra.Command{
 }
 
 func init() {
-	currentUser, err := user.Current()
+	userHomeDir, err := homedir.Dir()
 	if err != nil {
 		panic(err)
 	}
-	userHomeDir := currentUser.HomeDir
 
 	fileSeperator := string(filepath.Separator)
 

@@ -47,6 +47,7 @@ clone git github.com/mattsurabian/msg d2a9d565127023e7a954262d624c13eb97e8c564
 clone git github.com/spf13/cobra c55cdf33856a08e4822738728b41783292812889
 clone git github.com/spf13/viper 2abb1bebfde865b0bb6bb7ada5be63ec78527fa6
 clone git github.com/andrew-d/go-termutil 91702f30b7f6d63f574b486457bae6acb1534dce
+clone git github.com/mitchellh/go-homedir 56f508a88415ab57e596a176f0789ede8f790903
 
 ## Nested Deps
 clone git github.com/BurntSushi/toml 056c9bc7be7190eaa7715723883caffa5f8fa3e4
