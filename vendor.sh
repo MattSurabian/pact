@@ -41,12 +41,12 @@ clone() {
 }
 
 # List Project Dependencies
-clone git go.googlesource.com/crypto 1351f936d976c60a0a48d728281922cf63eafb8d golang.org/x/crypto
+clone git go.googlesource.com/crypto 81bf7719a6b7ce9b665598222362b50122dfc13b golang.org/x/crypto
 
 clone git github.com/mattsurabian/msg d2a9d565127023e7a954262d624c13eb97e8c564
-clone git github.com/spf13/cobra c55cdf33856a08e4822738728b41783292812889
-clone git github.com/spf13/viper 2abb1bebfde865b0bb6bb7ada5be63ec78527fa6
-clone git github.com/andrew-d/go-termutil 91702f30b7f6d63f574b486457bae6acb1534dce
+clone git github.com/spf13/cobra e4993076d845b7127c760e2e57a4984c166c6c05
+clone git github.com/spf13/viper 9fca10189b1307bba68b2cd487dd93da0bfbda06
+clone git github.com/andrew-d/go-termutil 009166a695a2f516c749a26b4ac1f183d89aa336
 clone git github.com/mitchellh/go-homedir 56f508a88415ab57e596a176f0789ede8f790903
 
 ## Nested Deps
@@ -60,3 +60,6 @@ clone git github.com/spf13/jwalterweatherman 3d60171a64319ef63c78bd45bd60e6eab1e
 clone git github.com/spf13/pflag 67cbc198fd11dab704b214c1e629a97af392c085
 clone git github.com/kr/text e373e137fafd8abd480af49182dea0513914adb4
 clone git gopkg.in/yaml.v2 7ad95dd0798a40da1ccdff6dff35fd177b5edf40
+clone git github.com/cpuguy83/go-md2man 71acacd42f85e5e82f70a55327789582a5200a90
+clone git github.com/russross/blackfriday 8cec3a854e68dba10faabbe31c089abf4a3e57a6
+clone git github.com/shurcooL/sanitized_anchor_name 244f5ac324cb97e1987ef901a0081a77bfd8e845
