@@ -43,7 +43,7 @@ clone() {
 # List Project Dependencies
 clone git go.googlesource.com/crypto 81bf7719a6b7ce9b665598222362b50122dfc13b golang.org/x/crypto
 
-clone git github.com/mattsurabian/msg d2a9d565127023e7a954262d624c13eb97e8c564
+clone git github.com/mattsurabian/msg b3924b8df8b1035caa9a0bb955e2945d7ee58614
 clone git github.com/spf13/cobra e4993076d845b7127c760e2e57a4984c166c6c05
 clone git github.com/spf13/viper 9fca10189b1307bba68b2cd487dd93da0bfbda06
 clone git github.com/andrew-d/go-termutil 009166a695a2f516c749a26b4ac1f183d89aa336

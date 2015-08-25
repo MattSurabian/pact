@@ -47,7 +47,7 @@ func Create(pactName string, plainText []byte) string {
 	pactKeys := make([]*[32]byte, len(pactKeyStrings))
 
 	for i, key := range pactKeyStrings {
-		pactKeys[i] = msg.ReadNACLKeyString(key)
+		pactKeys[i] = msg.StringToNACLKey(key)
 	}
 
 	cipherText := msg.Encrypt(plainText, pactKeys, GetPublicKey(), GetPrivateKey())

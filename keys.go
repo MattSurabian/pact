@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/base64"
 	"errors"
 	"fmt"
 	"github.com/mattsurabian/msg"
@@ -26,7 +25,7 @@ var KeyExportCmd = &cobra.Command{
 	Short: "Outputs the user's public key encoded as base64 to STDOUT",
 	Long:  `Sends the user's public key encoded as base64 to STDOUT for easy distribution`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(base64.StdEncoding.EncodeToString(GetPublicKey()[:]))
+		fmt.Println(msg.ReadNACLKeyFile(GetPublicKeyPath()))
 	},
 }
 
@@ -93,7 +92,7 @@ func GetPublicKeyPath() string {
  * Helper method which returns the user's public key
  */
 func GetPublicKey() *[32]byte {
-	return msg.ReadNACLKeyFile(GetPublicKeyPath())
+	return msg.NACLKeyFromFile(GetPublicKeyPath())
 }
 
 /**
@@ -111,5 +110,5 @@ func GetPrivateKeyPath() string {
  * Helper method which returns the user's private key
  */
 func GetPrivateKey() *[32]byte {
-	return msg.ReadNACLKeyFile(GetPrivateKeyPath())
+	return msg.NACLKeyFromFile(GetPrivateKeyPath())
 }
