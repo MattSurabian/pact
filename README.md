@@ -48,8 +48,13 @@ The following examples use the default "self" pact which is created on initial c
 Since Pact is a CLI tool it plays well with typical console functionality like piping (`|`) and output redirection (`>`) making
 file encryption and decryption relatively straightforward:
 
-*Linux/Mac:* `cat [path-to-file] | pact create self > file.encrypted` and `cat file.encrypted | pact read > file.decrypted`
-*Windows:* `type [path-to-file] | pact create self > file.encrypted` and `type file.encrypted | pact read > file.decrypted`
+*Linux/Mac:* 
+
+`cat [path-to-file] | pact create self > file.encrypted` and `cat file.encrypted | pact read > file.decrypted`
+
+*Windows:* 
+
+`type [path-to-file] | pact create self > file.encrypted` and `type file.encrypted | pact read > file.decrypted`
 
 
 ### With Strings
