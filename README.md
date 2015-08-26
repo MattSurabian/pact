@@ -66,7 +66,9 @@ Pact is also capable of reading in a plain text message or ciphertext directly f
 Using the `self` pact to encrypt/decrypt data for yourself is all well and good, but eventually you'll want to share data with other people. To do so 
 ask that person to download pact and run `pact config` then send the output of `pact key-export` to you.
 
-Use `pact add-key` to create a new pact that contains their key. For this example we're creating a pact called `friends`.
+Use `pact add-key` to create a new pact that contains their key. 
+
+For this example we're creating a pact called `friends`.
 
 ```
 pact add-key friends SOME-PUBLIC-KEY
