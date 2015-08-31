@@ -94,13 +94,12 @@ to the pact `pact key-export | pact add-key [name-of-pact]` you will not be able
 ## Available Commands
 
 ```
-$ ./pact -h
+$ ./pact
 A CLI tool that uses NaCl and AES-256-GCM to facilitate multiparty
 communication without the need for out of band secret sharing.
 Usage: 
   pact [flags]
   pact [command]
-
 Available Commands: 
   create      Outputs an encrypted ciphertext given a plain text message
   read        Outputs a plain text message given an encrypted ciphertext
@@ -112,6 +111,7 @@ Available Commands:
   list        Lists existing pacts
   add-key     Adds a key to an existing pact or creates a new pact containing the key
   rm-key      Interactively removes a single key from an existing pact
+  version     Outputs the version number to STDOUT
   help        Help about any command
 
 Flags:
