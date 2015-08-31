@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/spf13/cobra"
 )
 
@@ -11,7 +10,7 @@ var pactCmd = &cobra.Command{
 	Long: `A CLI tool that uses NaCl and AES-256-GCM to facilitate multiparty
 communication without the need for out of band secret sharing.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Pact CLI v" + VERSION)
+		cmd.Help()
 	},
 }
 
@@ -26,5 +25,6 @@ func main() {
 	pactCmd.AddCommand(ListPactCmd)
 	pactCmd.AddCommand(AddPactKeyCmd)
 	pactCmd.AddCommand(RmPactKeyCmd)
+	pactCmd.AddCommand(VersionCmd)
 	pactCmd.Execute()
 }

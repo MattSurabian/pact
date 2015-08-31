@@ -37,6 +37,14 @@ var ConfigCmd = &cobra.Command{
 	},
 }
 
+var VersionCmd = &cobra.Command{
+	Use: "version",
+	Short: "Outputs the version number to STDOUT",
+	Long: `Outputs the version number to STDOUT`,
+	Run: func(cmd *cobra.Command, args []string){
+		fmt.Println("Pact CLI v" + VERSION)
+	},
+}
 func init() {
 	userHomeDir, err := homedir.Dir()
 	if err != nil {
