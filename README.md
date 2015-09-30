@@ -39,7 +39,7 @@ Combining, yes. Concatenating, no. We assume that both AES-256-GCM and NaCl are 
 or at worst PRFs (pseudo-random-functions); which is to say the output they produce is sufficiently indistinguishable 
 from actual random output. The concatenation of two pseudo-random blocks is itself pseudo random. All parallelizable 
 crypto algorithms rely on this principal. Pact takes advantage of producing a psuedo-random block which can be intelligently 
-sliced appart by an authorized recipient and securely decrypted.
+sliced apart by an authorized recipient and securely decrypted.
 
 ## Usage
 The following examples use the default "self" pact which is created on initial configuration, but any pact shown in `pact list` could be used.
